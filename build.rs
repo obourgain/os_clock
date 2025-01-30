@@ -4,7 +4,9 @@ use std::env;
 use std::path::PathBuf;
 
 fn main() {
-    if cfg!(any(target_os = "macos", target_os = "ios")) {
+    // use the Cargo target to support cross compilation
+    let cargo_cfg_target = env::var("CARGO_CFG_TARGET_OS").unwrap();
+    if cargo_cfg_target == "macos" || cargo_cfg_target == "ios" {
         // The bindgen::Builder is the main entry point
         // to bindgen, and lets you build up options for
         // the resulting bindings.
